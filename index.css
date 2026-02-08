@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* warning: using prettier to re-format */
+
+* {
+    @apply transition select-none dark:text-white text-slate-900;
+}
+
+.block-shadow {
+    @apply shadow-lg shadow-slate-500/30 dark:shadow-slate-800/35;
+}
+
+.interactive {
+    @apply bg-slate-300/35 hover:bg-slate-300/60 active:bg-slate-300/70 focus:bg-slate-300/50 focus:shadow-xl;
+}
+
+@keyframes navshow {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes navhide {
+    from {
+        width: 100%;
+        opacity: 1;
+    }
+    to {
+        width: 0;
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    35% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.fadein {
+    animation: fade-in 0.5s forwards;
+}
+
+@keyframes fade-au {
+    0% {
+        opacity: 1;
+    }
+    35% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+.fadeau{
+    animation: fade-au 0.5s forwards;
+}
+
+@media (width < 40rem) {
+    .nav-hide {
+        animation: navhide 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+    }
+    .nav-show {
+        animation: navshow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+    }
+
+    .nav-show > * {
+        animation: fade-in 0.32s forwards;
+    }
+    .nav-hide > * {
+        animation: fade-au 0.32s forwards;
+    }
+}
+
+.border-button {
+    @apply border-zinc-300/65 hover:border-zinc-300/80 active:border-zinc-300 border-2 opacity-85 hover:opacity-90 cursor-pointer active:opacity-100 p-1 rounded-lg;
+}
+
+.real-nowrap {
+    @apply text-nowrap text-ellipsis overflow-hidden ;
+}
+
+.use-tight-list:first-child{
+    @apply rounded-t-lg overflow-hidden ;
+}
+.use-tight-list:last-child{
+    @apply rounded-b-lg overflow-hidden ;
+}
+.use-tight-list>*{
+    @apply rounded-lg! overflow-hidden ;
+}
+.use-tight-list:hover .tight-item{
+    @apply rounded-none! overflow-hidden ;
+}
+.tight-item:hover{
+    @apply rounded-lg!;
+}
+
+.use-tight-list{
+    @apply bg-slate-300/10
+}
