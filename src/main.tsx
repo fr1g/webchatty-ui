@@ -10,6 +10,7 @@ import RecentChats from './pages/navigations/RecentChats'
 import { Setting1Icon, UserListIcon } from 'tdesign-icons-react'
 import ColorModeSwitch from './comps/ColorModeSwitch'
 import Contacts from './pages/navigations/Contacts'
+import Settings from './pages/navigations/Settings'
 
 function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Function; mgr: ThemeHelper }) {
 
@@ -50,7 +51,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 </div>
                 <div className='hidden sm:grid grid-cols-1 shrink-0 gap-2'>
                     <ColorModeSwitch mgr={mgr} className='border-button' />
-                    <div className='grid items-center border-button'>
+                    <div className='grid items-center border-button' onClick={() => setNav("settings")}>
                         <Setting1Icon fillColor='transparent' size='large' className='block' strokeColor='currentColor' strokeWidth={2} />
                     </div>
                     
@@ -64,11 +65,11 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                             switch (nav) {
                                 default:
                                 case "recents":
-                                    return <RecentChats />;
+                                    return <RecentChats gotoContacts={() => setNav("contacts")} />;
                                 case "contacts":
-                                    return <Contacts />;
+                                    return <Contacts navGoBack={() => setNav("recents")} />;
                                 case "settings":
-                                    return <Contacts />;
+                                    return <Settings navGoBack={() => setNav("recents")} />;
                             }
                         })()
                     }
@@ -97,6 +98,8 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                         - init: cover with init interface
                 */}
                 <Route path='/chat' element={<Conversation targetChat={chatting} />} />
+                <Route path='/settings/*' element={<Conversation targetChat={chatting} />} />
+                <Route path='/user/:userId' element={<Conversation targetChat={chatting} />} />
 
                 {/* chat, settings(app, account(info), account(privacy-mydetail)), contactInfo, addFriend, about, ... */}
                 <Route index path='/*' element={<Index />} />
@@ -130,7 +133,7 @@ function Layout() {
         }
         <ToastableContext.Provider value={pushToast}>
             <BrowserRouter>
-                <div className='bg-slate-400 dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
+                <div className='bg-slate-400/90 dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
                     min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg '>
                     <AppScope side={side} setSide={setSide} mgr={mgr} />
                 </div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import AvataredListItem, { AvataredNavListItemFactory } from "../../comps/AvataredListItem";
 
 
-export default function RecentChats() {
+export default function RecentChats({gotoContacts}:{gotoContacts: Function}) {
     // getting recent chats via context
     const mock: NavListItem[] = [
         AvataredNavListItemFactory({name: "Bill Herry", jumper: () => {}}, "Hello there"),
@@ -20,7 +20,7 @@ export default function RecentChats() {
                 <SearchIcon fillColor='transparent' size='large' strokeColor='currentColor' strokeWidth={2} />
             </div>
             <Input placeholder={searching ? 'Search recents...' : ''} onFocus={() => setSearching(true)} onBlur={() => setSearching(false)} className={`w-full block-shadow h-8 rounded-lg px-1 interactive outline-0`} />
-            <div className={`items-center hidden border-button z-10 absolute right-0 top-0 bottom-0 sm:grid ${searching ? 'opacity-15! hover:opacity-50!' : 'opacity-100!'}`}>
+            <div onClick={() => gotoContacts()} className={`items-center hidden border-button z-10 absolute right-0 top-0 bottom-0 sm:grid ${searching ? 'opacity-15! hover:opacity-50!' : 'opacity-100!'}`}>
                 <UserListIcon fillColor='transparent' size='large' className='block' strokeColor='currentColor' strokeWidth={2} />
             </div>
         </div>
