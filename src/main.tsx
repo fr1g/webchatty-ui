@@ -7,80 +7,132 @@ import { ThemeHelper, useThemeDetector } from './tools/ThemeDetector'
 import Toast from './comps/Toast'
 import EndpointLookup from './tools/EndpointLookup'
 import RecentChats from './pages/navigations/RecentChats'
-import { Setting1Icon, UserListIcon } from 'tdesign-icons-react'
+import { ChatBubbleIcon, Setting1Icon, UserListIcon } from 'tdesign-icons-react'
 import ColorModeSwitch from './comps/ColorModeSwitch'
 import Contacts from './pages/navigations/Contacts'
 import Settings from './pages/navigations/Settings'
 
+export interface ReusableFuncsDef {
+    setChat: Function,
+    setUserView: Function,
+    setSettings: Function,
+    goHome: Function,
+    goTo: Function,
+}
+
+export const ReusableFuncs = createContext<ReusableFuncsDef | null>(null)
 function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Function; mgr: ThemeHelper }) {
 
     const [nav, setNav] = useState<"recents" | "contacts" | "settings">("recents");
-    const [chatting, setChatting] = useState<null | string>(null);
-
     const navigate = useNavigate();
     const mobNav = {
         goHome: () => {
             setSide("left");
             navigate("/");
         },
-        switchTo: (v: string) => {
+        goTo: (v: string) => {
             navigate(v);
             setSide("right");
-        }
+        } // 移动端视图切换两侧并导航
     };
 
-    return <div id='appscope'
-        className=' 
+    return <ReusableFuncs.Provider
+        value={
+            {
+                setChat: (id: string) => {
+                    console.log(`select chat: ${id}`);
+                    mobNav.goTo(`/chat/${id}`);
+                },
+                setUserView: (id: string) => {
+                    console.log(`select user: ${id}`);
+                    mobNav.goTo(`/user/${id}`);
+                },
+                setSettings: (id: string) => {
+                    console.log(`select user: ${id}`);
+                    mobNav.goTo(`/settings/${id}`);
+                },
+                goHome: mobNav.goHome,
+                goTo: mobNav.goTo,
+            }
+        }
+    >
+        <div id='appscope'
+            className=' 
                 !!!desktop:
                     sm:grid sm:grid-cols-8 gap-0 sm:gap-3
                 !!!mobile:
                     flex flex-row 
                 !!!general:
-                    transition h-full init?
-            '>
-        <div id='navigative' style={{ pointerEvents: 'visiblePainted' }}
-            className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-3 lg:col-span-2 flex flex-col .  rounded-lg`}
-        >
-            <div id='logged-in'
-                className='p-2 bg-slate-300/35 rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
+                    transition h-full init?    overflow-y-hidden
+        '>
+            <div id='navigative' style={{ pointerEvents: 'visiblePainted' }}
+                className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-3 lg:col-span-2 flex flex-col .  rounded-lg`}
             >
-                <div className='rounded-full block-shadow aspect-square shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-linear-to-br from-rose-100 via-[#fecaca] to-yellow-300'></div>
-                <div className='grid grid-cols-1 grow  items-center'>
-                    <h3 id='username' className='text-ellipsis overflow-hidden text-nowrap font-semibold'>Username</h3>
-                    <p id='bio-state' className='hidden sm:block text-sm/4 text-nowrap text-ellipsis overflow-hidden '>Bio or state should be here written and limited</p>
-                </div>
-                <div className='hidden sm:grid grid-cols-1 shrink-0 gap-2'>
-                    <ColorModeSwitch mgr={mgr} className='border-button' />
-                    <div className='grid items-center border-button' onClick={() => setNav("settings")}>
-                        <Setting1Icon fillColor='transparent' size='large' className='block' strokeColor='currentColor' strokeWidth={2} />
+                <div id='logged-in'
+                    className='p-2 bg-slate-300/35 rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
+                >
+                    <div className='rounded-full block-shadow aspect-square shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-linear-to-br from-rose-100 via-[#fecaca] to-yellow-300'></div>
+                    <div className='grid grid-cols-1 grow  items-center'>
+                        <h3 id='username' className='text-ellipsis overflow-hidden text-nowrap font-semibold'>Username</h3>
+                        <p id='bio-state' className='hidden sm:block text-sm/4 text-nowrap text-ellipsis overflow-hidden '>Bio or state should be here written and limited</p>
                     </div>
-                    
+                    <div className='hidden sm:grid grid-cols-1 shrink-0 gap-2'>
+                        <ColorModeSwitch mgr={mgr} className='border-button' />
+                        <div className='grid items-center border-button' onClick={() => setNav("settings")}>
+                            <Setting1Icon fillColor='transparent' size='large' className='block' strokeColor='currentColor' strokeWidth={2} />
+                        </div>
+
+                    </div>
+                    {/* avatar, name; desk:themeMode, contacts, bio/refreshState; mob: */}
                 </div>
-                {/* avatar, name; desk:themeMode, contacts, bio/refreshState; mob: */}
-            </div>
-            <div className='pt-3! p-3 sm:p-0 grow rounded-lg'>
-                <div id="nav-scr" className='w-full h-full ?border'>
-                    {
-                        (() => {
-                            switch (nav) {
-                                default:
-                                case "recents":
-                                    return <RecentChats gotoContacts={() => setNav("contacts")} />;
-                                case "contacts":
-                                    return <Contacts navGoBack={() => setNav("recents")} />;
-                                case "settings":
-                                    return <Settings navGoBack={() => setNav("recents")} />;
-                            }
-                        })()
-                    }
+                <div className='pt-3! p-3 sm:p-0 grow rounded-lg'>
+                    <div id="nav-scr" className='w-full h-full ?border'>
+                        {
+                            (() => {
+                                switch (nav) {
+                                    default:
+                                    case "recents":
+                                        return <RecentChats gotoContacts={() => setNav("contacts")} />;
+                                    case "contacts":
+                                        return <Contacts navGoBack={() => setNav("recents")} />;
+                                    case "settings":
+                                        return <Settings navGoBack={() => setNav("recents")} />;
+                                }
+                            })()
+                        }
+                    </div>
+                </div>
+                <div className='p-3 sm:hidden ' >
+                    <div className='rounded-lg bg-slate-200/35 grid grid-cols-3 items-center gap-1.5? overflow-hidden'>
+                        <div onClick={() => setNav("recents")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "recents" ? 'bg-slate-300/50' : ''}`}>
+                            <div className='text-center'>
+                                <ChatBubbleIcon size='large' fillColor='transparent' className='block mx-auto' strokeColor='currentColor' strokeWidth={2} />
+                                <p className='text-sm mt-0.5'>Recents</p>
+                            </div>
+                        </div>
+                        <div onClick={() => setNav("contacts")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "contacts" ? 'bg-slate-300/50' : ''}`}>
+                            <div className='text-center'>
+                                <UserListIcon fillColor='transparent' size='large' className='block mx-auto' strokeColor='currentColor' strokeWidth={2} />
+                                <p className='text-sm mt-0.5'>Contacts</p>
+                            </div>
+                        </div>
+                        <div onClick={() => setNav("settings")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "settings" ? 'bg-slate-300/50' : ''}`}>
+                            <div className='text-center'>
+                                <Setting1Icon fillColor='transparent' size='large' className='block mx-auto' strokeColor='currentColor' strokeWidth={2} />
+                                <p className='text-sm mt-0.5'>Settings</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-
-        <div className={`${side == "right" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-5 lg:col-span-6 . bg-slate-200/80 dark:bg-slate-600/80 p-3 rounded-lg`}>
-            <Routes>
-                {/* route definition
+            <div className={`
+                ${side == "right" ? 'grow nav-show' : 'nav-hide sm:block'} 
+                sm:col-span-5 lg:col-span-6 . bg-slate-200/80 dark:bg-slate-600/80 sm:rounded-lg h-full overflow-hidden
+            `}>
+                <div className='overflow-x-hidden overflow-y-auto w-full h-full p-3'>
+                    <Routes>
+                        {/* route definition
                     - nav screens: wont switch right panel
                         - recent chats
                         - contacts (with sorting, A-Z groupping and other function entrace)
@@ -97,15 +149,19 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                         - authed: show appscope + hide authpanel
                         - init: cover with init interface
                 */}
-                <Route path='/chat' element={<Conversation targetChat={chatting} />} />
-                <Route path='/settings/*' element={<Conversation targetChat={chatting} />} />
-                <Route path='/user/:userId' element={<Conversation targetChat={chatting} />} />
+                        <Route path='/chat' element={<Conversation />} />
+                        <Route path='/chat/:chatId' element={<Conversation />} />
+                        <Route path='/settings/:setting' element={<Conversation />} />
+                        <Route path='/user/:userId' element={<Conversation />} />
 
-                {/* chat, settings(app, account(info), account(privacy-mydetail)), contactInfo, addFriend, about, ... */}
-                <Route index path='/*' element={<Index />} />
-            </Routes>
+                        {/* chat, settings(app, account(info), account(privacy-mydetail)), contactInfo, addFriend, about, ... */}
+                        <Route index path='/*' element={<Index />} />
+                    </Routes>
+                </div>
+            </div>
         </div>
-    </div>
+
+    </ReusableFuncs.Provider>
 }
 
 export const ToastableContext = createContext<Function>(() => { });

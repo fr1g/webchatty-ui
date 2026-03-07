@@ -4,8 +4,16 @@
 /* warning: using prettier to re-format */
 
 * {
-    @apply transition select-none dark:text-white text-slate-900;
+    @apply transition select-none dark:text-slate-50 text-slate-800;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 29, 63, 0.671) transparent ;
 }
+
+*:where(.dark, .dark *) {
+    scrollbar-color: rgba(238, 246, 255, 0.582) transparent ;
+}
+
+
 
 .block-shadow {
     @apply shadow-lg shadow-slate-500/30 dark:shadow-slate-800/35;
@@ -20,6 +28,7 @@
         width: 0;
         opacity: 0;
     }
+
     to {
         width: 100%;
         opacity: 1;
@@ -31,6 +40,7 @@
         width: 100%;
         opacity: 1;
     }
+
     to {
         width: 0;
         opacity: 0;
@@ -42,13 +52,16 @@
     0% {
         opacity: 0;
     }
+
     35% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 .fadein {
     animation: fade-in 0.5s forwards;
 }
@@ -57,15 +70,18 @@
     0% {
         opacity: 1;
     }
+
     35% {
         opacity: 0;
     }
+
     100% {
         opacity: 0;
         display: none;
     }
 }
-.fadeau{
+
+.fadeau {
     animation: fade-au 0.5s forwards;
 }
 
@@ -73,14 +89,16 @@
     .nav-hide {
         animation: navhide 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
     }
+
     .nav-show {
         animation: navshow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
     }
 
-    .nav-show > * {
+    .nav-show>* {
         animation: fade-in 0.32s forwards;
     }
-    .nav-hide > * {
+
+    .nav-hide>* {
         animation: fade-au 0.32s forwards;
     }
 }
@@ -90,25 +108,29 @@
 }
 
 .real-nowrap {
-    @apply text-nowrap text-ellipsis overflow-hidden ;
+    @apply text-nowrap text-ellipsis overflow-hidden;
 }
 
-.use-tight-list:first-child{
-    @apply rounded-t-lg overflow-hidden ;
+.use-tight-list:first-child {
+    @apply rounded-t-lg overflow-hidden;
 }
-.use-tight-list:last-child{
-    @apply rounded-b-lg overflow-hidden ;
+
+.use-tight-list:last-child {
+    @apply rounded-b-lg overflow-hidden;
 }
-.use-tight-list>*{
-    @apply rounded-lg! overflow-hidden ;
+
+.use-tight-list>* {
+    @apply rounded-lg! overflow-hidden;
 }
-.use-tight-list:hover .tight-item{
-    @apply rounded-none! overflow-hidden ;
+
+.use-tight-list:hover .tight-item {
+    @apply rounded-none! overflow-hidden;
 }
-.tight-item:hover{
+
+.tight-item:hover {
     @apply rounded-lg!;
 }
 
-.use-tight-list{
-    @apply bg-slate-200/10
+.use-tight-list {
+    @apply bg-slate-200/30
 }

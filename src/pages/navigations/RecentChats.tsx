@@ -1,17 +1,25 @@
 import { Input } from "@headlessui/react";
 import NavList, { type NavListItem } from "../../comps/NavList";
 import { SearchIcon, UserListIcon } from "tdesign-icons-react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AvataredListItem, { AvataredNavListItemFactory } from "../../comps/AvataredListItem";
+import { ReusableFuncs } from "../../main";
 
 
-export default function RecentChats({gotoContacts}:{gotoContacts: Function}) {
+export default function RecentChats({ gotoContacts }: { gotoContacts: Function }) {
     // getting recent chats via context
-    const mock: NavListItem[] = [
-        AvataredNavListItemFactory({name: "Bill Herry", jumper: () => {}}, "Hello there"),
-        AvataredNavListItemFactory({name: "He Yao", jumper: () => {}}, "owo :)"),
-        AvataredNavListItemFactory({name: "Andrei Xyx", jumper: () => {}}, "Czesc!!! I'm your polanski guy :)"),
-    ];
+    const reuses = useContext(ReusableFuncs);
+    const [mock, setMock] = useState<NavListItem[]>([]);
+
+    useEffect(() => {
+        if (reuses == null) return;
+        setMock([
+            // 可优化：通过状态管理或context将最近聊天存在内存中，方便复用聊天对象的头像和昵称
+            AvataredNavListItemFactory({ name: "Bill Herry", jumper: () => { reuses.setChat("here-goes-chat-unique-id::001mock") } }, "Hello there"),
+            AvataredNavListItemFactory({ name: "He Yao", jumper: () => { reuses.setChat("here-goes-chat-unique-id::002mock") } }, "owo :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+        ]);
+    }, [reuses]);
 
     const [searching, setSearching] = useState(false);
     return <div>
