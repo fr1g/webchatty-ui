@@ -18,7 +18,7 @@ export function Conversation() {
     }, []);
 
     if (chatId) return <div className=" size-full flex flex-col gap-1">
-        <div className="-translate-y-0.5 flex rounded-lg bg-slate-100 dark:bg-slate-600 items-center gap-1.5 p-2">
+        <div className="-translate-y-0.5 flex rounded-lg bg-slate-100 dark:bg-slate-600 items-center gap-1.5 p-2 shadow-lg">
             <div onClick={() => reuses?.goHome()} className="border-button grid items-center justify-items-center sm:hidden aspect-square">
                 <ChevronLeftIcon className="block" fillColor='transparent' strokeColor='currentColor' strokeWidth={2} />
             </div>

@@ -69,7 +69,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-3 lg:col-span-2 flex flex-col .  rounded-lg`}
             >
                 <div id='logged-in'
-                    className='p-2 bg-slate-300/35 rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
+                    className='p-2 bg-slate-300/30 shadow-lg rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
                 >
                     <div className='rounded-full block-shadow aspect-square shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-linear-to-br from-rose-100 via-[#fecaca] to-yellow-300'></div>
                     <div className='grid grid-cols-1 grow  items-center'>
@@ -103,7 +103,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                     </div>
                 </div>
                 <div className='p-3 sm:hidden ' >
-                    <div className='rounded-lg bg-slate-200/35 grid grid-cols-3 items-center gap-1.5? overflow-hidden'>
+                    <div className='rounded-lg bg-slate-200/30 grid grid-cols-3 items-center gap-1.5? overflow-hidden shadow-lg'>
                         <div onClick={() => setNav("recents")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "recents" ? 'bg-slate-300/50' : ''}`}>
                             <div className='text-center'>
                                 <ChatBubbleIcon size='large' fillColor='transparent' className='block mx-auto' strokeColor='currentColor' strokeWidth={2} />
@@ -189,7 +189,7 @@ function Layout() {
         }
         <ToastableContext.Provider value={pushToast}>
             <BrowserRouter>
-                <div className='bg-slate-400/90 dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
+                <div className='bg-slate-400/70 dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
                     min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg '>
                     <AppScope side={side} setSide={setSide} mgr={mgr} />
                 </div>
