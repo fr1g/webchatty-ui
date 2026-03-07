@@ -189,7 +189,7 @@ function Layout() {
         }
         <ToastableContext.Provider value={pushToast}>
             <BrowserRouter>
-                <div className='bg-slate-400/70 dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
+                <div className='bg-[#a7b3c3] dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
                     min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg '>
                     <AppScope side={side} setSide={setSide} mgr={mgr} />
                 </div>
