@@ -37,9 +37,11 @@ export function Conversation() {
 
     const [text, setText] = useState<null | string>(null);
     const updateInput = (val: string) => {
-        const trimmed = val.trim();
+        // const trimmed = val.trimStart();
+        const trimmed = val;
         if (trimmed.length <= 0) setText(null);
         setText(trimmed);
+        console.log("trimmed", trimmed, trimmed.length)
     }
 
     if (chatId) return <>
@@ -68,6 +70,7 @@ export function Conversation() {
                         else if (send.current && text) (send.current as HTMLDivElement).click();
                     }}
                     onChange={(e) => updateInput(e.target.value)}
+                    value={text ?? ""}
                     ref={input}
                     style={{ resize: 'none' }}
                     name="textingbox"
@@ -82,11 +85,12 @@ export function Conversation() {
                         ${text == null ? 'bg-gray-300/80 cursor-not-allowed! pointer-events-none' : 'bg-blue-400/50 hover:bg-blue-400/75 active:bg-blue-300/45'}
                      grid shadow-md items-center justify-items-center rounded-lg  aspect-square
                     `} onClick={() => {
-                        if (text) {
-                            setChatStack(_ => [..._, text]);
-                            setText(null);
-                            if (input.current) (input.current as HTMLTextAreaElement).value = "";
+                        if (text) { // 或者只需要判断发送内容是不是纯空格，或者干脆不判断
+                            setChatStack(_ => [..._, text.trim()]);
                         }
+                        setText(null);
+                        if (input.current) (input.current as HTMLTextAreaElement).value = "";
+
                     }}>
                     <SendIcon className="block" fillColor='transparent' strokeColor='currentColor' strokeWidth={2} />
                 </div>
