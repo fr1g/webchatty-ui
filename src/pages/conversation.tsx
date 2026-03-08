@@ -12,10 +12,10 @@ export function Conversation() {
     const reuses = useContext(ReusableFuncs);
 
     useEffect(() => {
-        if (chatStack.length < 1) setTimeout(() => {
-            setChatStack(_ => [..._, _.length])
+        setTimeout(() => {
+            if (chatStack.length < 8) setChatStack(_ => [..._, _.length]);
         }, 1500);
-    }, []);
+    });
 
     if (chatId) return <div className=" size-full flex flex-col gap-1">
         <div className="-translate-y-0.5 flex rounded-lg bg-slate-100 dark:bg-slate-600 items-center gap-1.5 p-2 shadow-lg">
@@ -26,12 +26,12 @@ export function Conversation() {
                 <h3 className="text-lg font-semibold text-nowrap max-w-[66vw] text-ellipsis overflow-hidden">昵称</h3>
                 <h5 className="text-sm/4 text-nowrap max-w-[66vw] text-ellipsis overflow-hidden">此处可以写bio和在线状态: {chatId}</h5>
             </div>
-            <ClickableAvatar className="size-full!?" />
+            <ClickableAvatar className="" />
         </div>
         <div className="flex-col-reverse flex grow">
             {[...chatStack].reverse().map((msg) => {
 
-                return <Bubble message={`${msg}`} opposite={msg == 1} key={msg} extras="2026/mar/7-10:24" />
+                return <Bubble message={`${msg}`} opposite={msg % 2 == 0} key={msg} extras="2026/mar/7-10:24" />
             })}
         </div>
         <div className="w-full min-h-12 flex gap-1.5 sm:gap-3 mt-1">

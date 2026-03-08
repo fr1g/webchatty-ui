@@ -16,7 +16,7 @@
 
 
 .block-shadow {
-    @apply shadow-lg shadow-slate-500/30 dark:shadow-slate-800/35;
+    @apply shadow sm:shadow-lg shadow-slate-500/30 dark:shadow-slate-800/35;
 }
 
 .interactive {
