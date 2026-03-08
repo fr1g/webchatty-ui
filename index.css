@@ -16,11 +16,11 @@
 
 
 .block-shadow {
-    @apply shadow sm:shadow-lg shadow-slate-500/30 dark:shadow-slate-800/35;
+    @apply shadow sm:shadow-md shadow-slate-500/30 dark:shadow-slate-800/35;
 }
 
 .interactive {
-    @apply bg-slate-300/35 hover:bg-slate-300/60 active:bg-slate-300/70 focus:bg-slate-300/50 focus:shadow-xl;
+    @apply bg-slate-100/50 dark:bg-slate-200/15 hover:bg-slate-300/60 active:bg-slate-300/70 focus:bg-slate-300/50 focus:shadow-xl;
 }
 
 @keyframes navshow {
@@ -104,7 +104,8 @@
 }
 
 .border-button {
-    @apply border-zinc-300/65 hover:border-zinc-300/80 active:border-zinc-300 border-2 opacity-85 hover:opacity-90 cursor-pointer active:opacity-100 p-1 rounded-lg;
+    @apply border-slate-500/60 border-2 opacity-90 hover:opacity-60 cursor-pointer active:opacity-100 p-1 rounded-lg;
+    pointer-events: visible
 }
 
 .real-nowrap {
@@ -132,5 +133,5 @@
 }
 
 .use-tight-list {
-    @apply bg-slate-200/30
+    @apply bg-slate-100/15 dark:bg-slate-200/15
 }

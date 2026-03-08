@@ -9,10 +9,10 @@ export default function NavList({ items, tight = false }: { items: NavListItem[]
         setSelect(sel);
         func();
     }
-    return <ul className={`h-full w-full shadow rounded-lg ${tight ? 'use-tight-list' : 'space-y-1 bg-slate-200/15'} `}>
+    return <ul className={`h-full w-full shadow sm:shadow-md rounded-lg ${tight ? 'use-tight-list' : 'space-y-1 bg-slate-50/15 dark:bg-slate-200/10'} `}>
         {items.map((i: NavListItem) => {
             return <li key={i.name} onClick={() => doSelect(i.jumper, i)}
-                className={`${i.customNode ? '' : 'p-3'} ${tight ? 'tight-item' : 'rounded-lg'} hover:shadow ${i.name == select?.name ? 'bg-slate-200/30!' : ''} bg-transparent hover:bg-slate-200/40 dark:hover:bg-slate-400/50 active:bg-slate-500/55 dark:active:bg-slate-400`}>
+                className={`${i.customNode ? '' : 'p-3'} ${tight ? 'tight-item' : 'rounded-lg'} hover:shadow ${i.name == select?.name ? 'bg-slate-500/30! dark:bg-slate-500/75!' : ''} bg-transparent hover:bg-slate-100/40 dark:hover:bg-slate-400/50 active:bg-slate-500/55 dark:active:bg-slate-500`}>
                 {
                     i.customNode ?? <p>
                         {i.name}

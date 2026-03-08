@@ -1,4 +1,4 @@
-import { createContext, StrictMode, useEffect, useRef, useState } from 'react'
+import { createContext, StrictMode, useEffect, useRef, useState, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router'
 import Index from './pages'
@@ -23,6 +23,8 @@ export interface ReusableFuncsDef {
 export const ReusableFuncs = createContext<ReusableFuncsDef | null>(null)
 function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Function; mgr: ThemeHelper }) {
 
+    const mobileScreen = useRef(null);
+
     const [nav, setNav] = useState<"recents" | "contacts" | "settings">("recents");
     const navigate = useNavigate();
     const mobNav = {
@@ -35,6 +37,29 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
             setSide("right");
         } // 移动端视图切换两侧并导航
     };
+
+    useEffect(() => {
+
+        let status: any, bind: HTMLDivElement,
+            elStart = (e: TouchEvent) => {
+
+            },
+            elEnd = (e: TouchEvent) => {
+
+            }
+        if (mobileScreen.current) {
+            bind = (mobileScreen.current as HTMLDivElement);
+            bind.addEventListener("touchstart", elStart);
+            bind.addEventListener("touchend", elEnd);
+        }
+
+        return () => {
+            if (bind) {
+                bind.removeEventListener("touchstart", elStart);
+                bind.removeEventListener("touchend", elEnd);
+            }
+        }
+    }, [mobileScreen]);
 
     return <ReusableFuncs.Provider
         value={
@@ -69,7 +94,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-3 lg:col-span-2 flex flex-col .  rounded-lg`}
             >
                 <div id='logged-in'
-                    className='p-2 bg-slate-300/30 shadow-lg rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
+                    className='p-2 bg-slate-100/50 dark:bg-slate-200/15 shadow-md rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
                 >
                     <div className='rounded-full block-shadow aspect-square shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-linear-to-br from-rose-100 via-[#fecaca] to-yellow-300'></div>
                     <div className='grid grid-cols-1 grow  items-center'>
@@ -103,7 +128,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                     </div>
                 </div>
                 <div className='p-3 sm:hidden ' >
-                    <div className='rounded-lg bg-slate-200/30 grid grid-cols-3 items-center gap-1.5? overflow-hidden shadow-lg'>
+                    <div className='rounded-lg bg-slate-200/30 grid grid-cols-3 items-center gap-1.5? overflow-hidden shadow-md'>
                         <div onClick={() => setNav("recents")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "recents" ? 'bg-slate-300/50' : ''}`}>
                             <div className='text-center'>
                                 <ChatBubbleIcon size='large' fillColor='transparent' className='block mx-auto' strokeColor='currentColor' strokeWidth={2} />
@@ -130,7 +155,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 ${side == "right" ? 'grow nav-show' : 'nav-hide sm:block'} 
                 sm:col-span-5 lg:col-span-6 . bg-slate-200/80 dark:bg-slate-600/80 sm:rounded-lg h-full overflow-hidden
             `}>
-                <div className='overflow-x-hidden overflow-y-auto w-full h-full p-3'>
+                <div className='overflow-x-hidden overflow-y-auto? w-full h-screen sm:h-full p-3' ref={mobileScreen}>
                     <Routes>
                         {/* route definition
                     - nav screens: wont switch right panel
@@ -179,7 +204,7 @@ function Layout() {
     return <>
         {
             !true && <div className='fixed z-999' style={{ pointerEvents: 'visiblePainted' }}>
-                <div className='fixed bg-amber-300 p-3 shadow z-2222 top-3 right-3' onClick={() => {
+                <div className='fixed bg-amber-300 p-3 shadow-xl z-2222 top-3 right-3' onClick={() => {
                     if (side == "left") setSide("right");
                     else setSide("left")
                     console.log(side)

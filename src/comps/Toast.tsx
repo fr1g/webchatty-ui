@@ -10,7 +10,7 @@ const Toast = React.forwardRef(
     (props: any, ref: any) => {
         const state = {
             message: null,
-            color: 'bg-white/50 dark:bg-black/50 backdrop-blur-md shadow-lg',
+            color: 'bg-white/50 dark:bg-black/50 backdrop-blur-md shadow-md',
             toastArea: useRef<HTMLDivElement | null>(null),
             p: props
         };
