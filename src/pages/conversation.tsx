@@ -46,7 +46,7 @@ export function Conversation() {
 
     if (chatId) return <>
         <div className=" size-full flex flex-col relative">
-            <div className=" flex rounded-lg bg-slate-100 dark:bg-slate-600 items-center gap-1.5 p-2 shadow-md">
+            <div className=" flex rounded-lg bg-slate-100 dark:bg-slate-600 items-center gap-1.5 p-2 shadow-md z-1">
                 <div onClick={() => reuses?.goHome()} className="border-button grid items-center justify-items-center sm:hidden aspect-square">
                     <ChevronLeftIcon className="block" fillColor='transparent' strokeColor='currentColor' strokeWidth={2} />
                 </div>
