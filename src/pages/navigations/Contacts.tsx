@@ -23,7 +23,7 @@ export default function Contacts({ navGoBack }: { navGoBack: Function }) {
         ]);
     }, [reuses]);
 
-    return <div className="space-y-1.5">
+    return <div className="gap-1.5 max-h-full flex flex-col">
         <div className="hidden sm:flex gap-3 items-center block-shadow border-button" onClick={() => navGoBack()}>
             <ArrowLeftIcon className="block ml-1" />
             <p>Go Back</p>
@@ -33,8 +33,8 @@ export default function Contacts({ navGoBack }: { navGoBack: Function }) {
             <div className={`grid items-center border-button border-0! z-10 absolute left-0.5 top-0 bottom-0  ${searching ? 'opacity-15!' : 'opacity-100!'}`}>
                 <SearchIcon fillColor='transparent' size='large' strokeColor='currentColor' strokeWidth={2} />
             </div>
-            <Input placeholder={searching ? 'Search recents...' : ''} onFocus={() => setSearching(true)} onBlur={() => setSearching(false)} className={`w-full block-shadow h-8 rounded-lg px-1 interactive outline-0`} />
+            <Input placeholder={searching ? 'Search in contacts...' : ''} onFocus={() => setSearching(true)} onBlur={() => setSearching(false)} className={`w-full block-shadow h-8 rounded-lg px-1 interactive outline-0`} />
         </div>
-        <NavList items={mock} />
+        <NavList items={mock} hintBottom />
     </div>
 }

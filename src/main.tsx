@@ -11,6 +11,10 @@ import { ChatBubbleIcon, Setting1Icon, UserListIcon } from 'tdesign-icons-react'
 import ColorModeSwitch from './comps/ColorModeSwitch'
 import Contacts from './pages/navigations/Contacts'
 import Settings from './pages/navigations/Settings'
+import GeneralSettings from './pages/settings/General'
+import ProfileSettings from './pages/settings/MyProfile'
+import PrivacySettings from './pages/settings/Privacy'
+import Modal, { DialogInfo } from './comps/Modal'
 
 export interface ReusableFuncsDef {
     setChat: Function,
@@ -18,6 +22,14 @@ export interface ReusableFuncsDef {
     setSettings: Function,
     goHome: Function,
     goTo: Function,
+    themeMgr: ThemeHelper,
+    modalUpdate: Function
+}
+
+export interface ModalControl {
+    info: DialogInfo,
+    showing: boolean,
+    customChildren?: ReactNode,
 }
 
 export const ReusableFuncs = createContext<ReusableFuncsDef | null>(null)
@@ -26,6 +38,13 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
     const mobileScreen = useRef(null);
 
     const [nav, setNav] = useState<"recents" | "contacts" | "settings">("recents");
+    const [modal, setModal] = useState<ModalControl>({
+        info: new DialogInfo(
+            "", "notset", () => { }
+        ),
+        showing: false,
+        customChildren: undefined
+    });
     const navigate = useNavigate();
     const mobNav = {
         goHome: () => {
@@ -40,7 +59,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
 
     useEffect(() => {
 
-        let status: any, bind: HTMLDivElement,
+        let status: any, bind: HTMLDivElement, // 本来想加一个手势返回的，太麻烦就算了
             elStart = (e: TouchEvent) => {
 
             },
@@ -61,6 +80,15 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
         }
     }, [mobileScreen]);
 
+    useEffect(() => {
+        // 由于导航系统不完全使用router，所以需要在页面加载的时候处理部分导航以确保移动端正确显示
+        const stack = window.location.pathname.split('/');
+        stack.shift();
+        console.log(stack);
+        if (stack.length >= 2) setSide('right');
+        setNav(stack[0] as "contacts" | "settings" | "recents");
+    }, []);
+
     return <ReusableFuncs.Provider
         value={
             {
@@ -78,20 +106,25 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 },
                 goHome: mobNav.goHome,
                 goTo: mobNav.goTo,
+                themeMgr: mgr,
+                modalUpdate: setModal
             }
         }
     >
         <div id='appscope'
             className=' 
                 !!!desktop:
-                    sm:grid sm:grid-cols-8 gap-0 sm:gap-3
+                    sm:grid! sm:grid-cols-8 gap-0 sm:gap-3
                 !!!mobile:
                     flex flex-row 
                 !!!general:
-                    transition h-full init?    overflow-y-hidden
+                    transition relative top-0 left-0 right-0 bottom-0 init?     w-full  max-h-screen
         '>
             <div id='navigative' style={{ pointerEvents: 'visiblePainted' }}
-                className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'} sm:col-span-3 lg:col-span-2 flex flex-col .  rounded-lg`}
+                className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'}
+                 sm:col-span-3 lg:col-span-2 flex flex-col . max-h-screen  rounded-lg
+                 min-h-0
+                 `}
             >
                 <div id='logged-in'
                     className='p-2 bg-slate-100/50 dark:bg-slate-200/15 shadow-md rounded-none rounded-b-lg sm:rounded-lg! block-shadow . shrink-0 flex flex-row items-center gap-1.5'
@@ -110,7 +143,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                     </div>
                     {/* avatar, name; desk:themeMode, contacts, bio/refreshState; mob: */}
                 </div>
-                <div className='pt-3! p-3 sm:p-0 grow rounded-lg'>
+                <div className='pt-3! p-3 sm:p-0 rounded-lg grow ????? h-full  overflow-hidden'>
                     <div id="nav-scr" className='w-full h-full ?border'>
                         {
                             (() => {
@@ -127,7 +160,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                         }
                     </div>
                 </div>
-                <div className='p-3 sm:hidden ' >
+                <div className='p-3 sm:hidden pt-0' >
                     <div className='rounded-lg bg-slate-200/30 grid grid-cols-3 items-center gap-1.5? overflow-hidden shadow-md'>
                         <div onClick={() => setNav("recents")} className={`grid items-center justify-items-center active:bg-slate-300/30 p-1.5  ${nav == "recents" ? 'bg-slate-300/50' : ''}`}>
                             <div className='text-center'>
@@ -176,7 +209,9 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 */}
                         <Route path='/chat' element={<Conversation />} />
                         <Route path='/chat/:chatId' element={<Conversation />} />
-                        <Route path='/settings/:setting' element={<Conversation />} />
+                        <Route path='/settings/privacy' element={<PrivacySettings />} />
+                        <Route path='/settings/profile' element={<ProfileSettings />} />
+                        <Route path='/settings/general' element={<GeneralSettings />} />
                         <Route path='/user/:userId' element={<Conversation />} />
 
                         {/* chat, settings(app, account(info), account(privacy-mydetail)), contactInfo, addFriend, about, ... */}
@@ -185,7 +220,11 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                 </div>
             </div>
         </div>
-
+        <Modal activated={modal.showing} info={modal.info} shut={() => {
+            setModal(_ => { return { ..._, showing: false } as ModalControl })
+        }} >
+            {modal.customChildren}
+        </Modal>
     </ReusableFuncs.Provider>
 }
 
@@ -213,9 +252,12 @@ function Layout() {
             </div>
         }
         <ToastableContext.Provider value={pushToast}>
+            {
+                // unauthorized cover
+            }
             <BrowserRouter>
                 <div className='bg-slate-50 sm:bg-[#c3ccd8] dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
-                    min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg '>
+                    min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg flex'>
                     <AppScope side={side} setSide={setSide} mgr={mgr} />
                 </div>
             </BrowserRouter>

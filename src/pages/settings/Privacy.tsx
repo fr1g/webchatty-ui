@@ -1,5 +1,3 @@
-// example
-
 import { useContext, useState, useEffect } from "react";
 import { LogoutIcon } from "tdesign-icons-react";
 import type { DialogInfo } from "../../comps/Modal";
@@ -9,11 +7,10 @@ import { ReusableFuncs, type ModalControl } from "../../main";
 import SettingsLayout from "./SettingsLayout";
 
 
-export default function ProfileSettings() {
+export default function PrivacySettings() {
 
     const reuses = useContext(ReusableFuncs);
     const [items, setItems] = useState<NavListItem[]>([]);
-
 
     useEffect(() => {
         if (reuses)
@@ -40,7 +37,7 @@ export default function ProfileSettings() {
                 }) as NavListItem]);
     }, [reuses]);
 
-    return <SettingsLayout title="Profile" >
+    return <SettingsLayout title="Privacy" explain="Manage your way to be discovered and info visibilities." >
         <NavList items={items} tight />
     </SettingsLayout>
 }

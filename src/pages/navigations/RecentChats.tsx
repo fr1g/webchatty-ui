@@ -18,11 +18,20 @@ export default function RecentChats({ gotoContacts }: { gotoContacts: Function }
             AvataredNavListItemFactory({ name: "Bill Herry", jumper: () => { reuses.setChat("here-goes-chat-unique-id::001mock") } }, "Hello there"),
             AvataredNavListItemFactory({ name: "He Yao", jumper: () => { reuses.setChat("here-goes-chat-unique-id::002mock") } }, "owo :)"),
             AvataredNavListItemFactory({ name: "Andrei Xyx", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 1", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 2", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 3", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 4", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 5", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 6", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 7", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 8", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrei Xyx 9", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
         ]);
     }, [reuses]);
 
     const [searching, setSearching] = useState(false);
-    return <div>
+    return <div className="max-h-full flex flex-col">
         <div className="relative mb-3">
             <div className={`grid items-center border-button border-0! z-10 absolute left-0.5 top-0 bottom-0  ${searching ? 'opacity-15!' : 'opacity-100!'}`}>
                 <SearchIcon fillColor='transparent' size='large' strokeColor='currentColor' strokeWidth={2} />
@@ -32,6 +41,6 @@ export default function RecentChats({ gotoContacts }: { gotoContacts: Function }
                 <UserListIcon fillColor='transparent' size='large' className='block' strokeColor='currentColor' strokeWidth={2} />
             </div>
         </div>
-        <NavList items={mock} tight />
+        <NavList items={mock} tight hintBottom />
     </div>
 }
