@@ -9,7 +9,7 @@ export default function NavList({ items, tight = false, hintBottom = false }: { 
         setSelect(sel);
         func();
     }
-    return <div className="shadow sm:shadow-md rounded-lg grow? overflow-y-scroll">
+    return <div className="shadow-none sm:shadow-md rounded-lg grow? overflow-y-scroll">
         <ul className={` ${tight ? 'use-tight-list' : 'space-y-1 bg-slate-50/15 dark:bg-slate-200/10'} ${hintBottom ? 'mb-8 sm:mb-0' : ''} sm:pb-0`}>
             {items.map((i: NavListItem) => {
                 return <li key={i.name} onClick={() => doSelect(i.jumper, i)}

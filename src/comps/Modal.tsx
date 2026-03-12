@@ -6,38 +6,51 @@ export class DialogInfo {
     approveOpt?: string;
     content: string;
     title: string;
+    danger?: 'approve' | 'cancel';
 
     constructor(
         content: string,
         title: string,
         approveCall: Function,
-        approveOpt?: string
+        approveOpt?: string,
+        danger?: 'approve' | 'cancel'
     ) {
         this.approveCall = approveCall
         this.approveOpt = approveOpt
         this.content = content
         this.title = title
+        this.danger = danger
     }
 }
 
 export default function Modal({ children, activated = false, info, shut }: { children?: ReactNode, activated: boolean, info: DialogInfo, shut: Function }) {
 
+    function x() {
+        try {
+            document.getElementById('MODAL___')?.classList.replace('fadein', 'fadeau');
+        } catch (error) {
+            // whatever
+        }
+        setTimeout(() => {
+            shut();
+        }, 499);
+    }
     function continueOpt() {
         info.approveCall();
-        shut();
+        x()
     }
 
-    return <Dialog open={activated} onClose={() => shut()} className="relative z-50" >
-        <div className="fixed inset-0 flex w-screen items-center justify-center" id='MODAL_DIALOG'>
-            <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
-                <DialogTitle className="font-bold">{info.title}</DialogTitle>
+    return <Dialog open={activated} onClose={() => x()} className="relative z-50 init fadein" id="MODAL___">
+        <div className="fixed inset-0 flex w-screen items-center justify-center init p-3" id='MODAL_DIALOG'>
+            <DialogPanel className="max-w-lg space-y-4 shadow-lg init interactive border-2 bg-slate-300/60! dark:bg-slate-800/70 backdrop-blur-3xl p-3 rounded-lg">
+                <DialogTitle className="font-bold text-xl">{info.title}</DialogTitle>
                 <Description>
                     {children ?? info.content}
                 </Description>
                 <div className="flex gap-4">
-                    <button id='MODAL___SHUT' onClick={() => shut()}>Cancel</button>
+                    <button className={`border-button px-1.5! py-0.5!  ${info.danger == 'cancel' ? 'bg-red-400/80' : ''}`} id='MODAL___SHUT' onClick={() => x()}>Cancel</button>
                     {
-                        info.approveOpt && <button onClick={() => continueOpt()}>{info.approveOpt}</button>
+                        info.approveOpt && <button className={`border-button px-1.5! py-0.5!  ${info.danger == 'approve' ? 'bg-red-400/80' : ''}`} onClick={() => continueOpt()}>{info.approveOpt}</button>
                     }
                 </div>
             </DialogPanel>

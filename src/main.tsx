@@ -143,7 +143,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                     </div>
                     {/* avatar, name; desk:themeMode, contacts, bio/refreshState; mob: */}
                 </div>
-                <div className='pt-3! p-3 sm:p-0 rounded-lg grow ????? h-full  overflow-hidden'>
+                <div className='pt-3! px-3 sm:p-0 rounded-lg grow ????? h-full  overflow-hidden'>
                     <div id="nav-scr" className='w-full h-full ?border'>
                         {
                             (() => {

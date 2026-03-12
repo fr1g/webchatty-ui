@@ -42,7 +42,8 @@ export default function GeneralSettings() {
                                 },
                                 approveOpt: "Yes",
                                 title: "Logging off",
-                                content: "Are you sure to log off? You will not able to access your contacts unless you log in again."
+                                content: "Are you sure to log off? You will not able to access your contacts unless you log in again.",
+                                danger: 'approve'
                             } as DialogInfo,
                             showing: true,
                             customChildren: undefined
