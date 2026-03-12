@@ -17,16 +17,16 @@ export default function RecentChats({ gotoContacts }: { gotoContacts: Function }
             // 可优化：通过状态管理或context将最近聊天存在内存中，方便复用聊天对象的头像和昵称
             AvataredNavListItemFactory({ name: "Bill Herry", jumper: () => { reuses.setChat("here-goes-chat-unique-id::001mock") } }, "Hello there"),
             AvataredNavListItemFactory({ name: "He Yao", jumper: () => { reuses.setChat("here-goes-chat-unique-id::002mock") } }, "owo :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 1", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 2", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 3", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 4", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 5", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 6", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 7", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 8", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
-            AvataredNavListItemFactory({ name: "Andrei Xyx 9", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 1", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 2", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 3", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 4", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 5", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 6", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 7", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 8", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx 9", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "Czesc!!! I'm your polanski guy :)"),
         ]);
     }, [reuses]);
 

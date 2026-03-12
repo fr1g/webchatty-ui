@@ -122,7 +122,7 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
         '>
             <div id='navigative' style={{ pointerEvents: 'visiblePainted' }}
                 className={`${side == "left" ? 'grow nav-show' : 'nav-hide sm:block'}
-                 sm:col-span-3 lg:col-span-2 flex flex-col . max-h-screen  rounded-lg
+                 sm:col-span-3 lg:col-span-2 flex flex-col . max-h-screen  rounded-lg overflow-hidden
                  min-h-0
                  `}
             >
