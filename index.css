@@ -135,3 +135,8 @@
 .use-tight-list {
     @apply bg-slate-100/15 dark:bg-slate-200/15
 }
+
+
+table.comparasive tbody tr td:last-child {
+    @apply text-right font-semibold
+}

@@ -18,9 +18,9 @@ export default function Contacts({ navGoBack }: { navGoBack: Function }) {
         if (reuses == null) return;
         setMock([
             // 可优化：通过状态管理或context将最近聊天存在内存中，方便复用聊天对象的头像和昵称
-            AvataredNavListItemFactory({ name: "Bill Herry", jumper: () => { reuses.setChat("here-goes-chat-unique-id::001mock") } }, "Bio 其实就相当于QQ里面的个性签名"),
-            AvataredNavListItemFactory({ name: "He Yao", jumper: () => { reuses.setChat("here-goes-chat-unique-id::002mock") } }, "所以通讯录里面这里写bio非常合理"),
-            AvataredNavListItemFactory({ name: "Andrzej Xyx", jumper: () => { reuses.setChat("here-goes-chat-unique-id::003mock") } }, "在线·当然可以用模板方法在开头添加这种在线状态"),
+            AvataredNavListItemFactory({ name: "Bill Herry", jumper: () => { reuses.setUserView("here-goes-chat-unique-id::001mock") } }, "Bio 其实就相当于QQ里面的个性签名"),
+            AvataredNavListItemFactory({ name: "He Yao", jumper: () => { reuses.setUserView("here-goes-chat-unique-id::002mock") } }, "所以通讯录里面这里写bio非常合理"),
+            AvataredNavListItemFactory({ name: "Andrzej Xyx", jumper: () => { reuses.setUserView("here-goes-chat-unique-id::003mock") } }, "在线·当然可以用模板方法在开头添加这种在线状态"),
         ]);
     }, [reuses]);
 
@@ -31,7 +31,10 @@ export default function Contacts({ navGoBack }: { navGoBack: Function }) {
         </div>
         <div className="flex relative gap-0.5">
             <h3 className="text-xl font-semibold my-1 grow">Contacts</h3>
-            <div className="border-button h-full p-1.5 flex gap-1 scale-90 items-center justify-items-center relative">
+            <div onClick={() => {
+                reuses?.goTo("/newfriend")
+            }}
+                className="border-button h-full p-1.5 flex gap-1 scale-90 items-center justify-items-center relative">
                 <UserAddIcon fillColor='transparent' className="block" strokeColor='currentColor' strokeWidth={2} />
                 <div>New</div>
                 {

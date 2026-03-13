@@ -42,12 +42,13 @@ export default function Modal({ children, activated = false, info, shut }: { chi
 
     return <Dialog open={activated} onClose={() => x()} className="relative z-50 init fadein" id="MODAL___">
         <div className="fixed inset-0 flex w-screen items-center justify-center init p-3" id='MODAL_DIALOG'>
-            <DialogPanel className="max-w-lg space-y-4 shadow-lg init interactive border-2 bg-slate-300/60! dark:bg-slate-800/70 backdrop-blur-3xl p-3 rounded-lg">
+            <DialogPanel className="max-w-lg space-y-4 shadow-lg init interactive border-2 bg-slate-300/90! dark:bg-slate-800/90 backdrop-blur-3xl p-3 rounded-lg">
                 <DialogTitle className="font-bold text-xl">{info.title}</DialogTitle>
-                <Description>
-                    {children ?? info.content}
-                </Description>
-                <div className="flex gap-4">
+
+                {
+                    children ?? <Description>{info.content}</Description>
+                }
+                <div className="flex flex-row-reverse gap-4">
                     <button className={`border-button px-1.5! py-0.5!  ${info.danger == 'cancel' ? 'bg-red-400/80' : ''}`} id='MODAL___SHUT' onClick={() => x()}>Cancel</button>
                     {
                         info.approveOpt && <button className={`border-button px-1.5! py-0.5!  ${info.danger == 'approve' ? 'bg-red-400/80' : ''}`} onClick={() => continueOpt()}>{info.approveOpt}</button>

@@ -15,6 +15,9 @@ import GeneralSettings from './pages/settings/General'
 import ProfileSettings from './pages/settings/MyProfile'
 import PrivacySettings from './pages/settings/Privacy'
 import Modal, { DialogInfo } from './comps/Modal'
+import UserView from './pages/UserView'
+import NewFriend from './pages/NewFriend'
+import Auth from './pages/covers/Auth'
 
 export interface ReusableFuncsDef {
     setChat: Function,
@@ -212,7 +215,8 @@ function AppScope({ side, setSide, mgr }: { side: "right" | "left"; setSide: Fun
                         <Route path='/settings/privacy' element={<PrivacySettings />} />
                         <Route path='/settings/profile' element={<ProfileSettings />} />
                         <Route path='/settings/general' element={<GeneralSettings />} />
-                        <Route path='/user/:userId' element={<Conversation />} />
+                        <Route path='/user/:userId' element={<UserView />} />
+                        <Route path='/newfriend' element={<NewFriend />} />
 
                         {/* chat, settings(app, account(info), account(privacy-mydetail)), contactInfo, addFriend, about, ... */}
                         <Route index path='/*' element={<Index />} />
@@ -240,6 +244,8 @@ function Layout() {
 
     const [side, setSide] = useState<"left" | "right">("left");
 
+    const unauthed = true;
+
     return <>
         {
             !true && <div className='fixed z-999' style={{ pointerEvents: 'visiblePainted' }}>
@@ -253,14 +259,21 @@ function Layout() {
         }
         <ToastableContext.Provider value={pushToast}>
             {
-                // unauthorized cover
-            }
-            <BrowserRouter>
-                <div className='bg-slate-50 sm:bg-[#c3ccd8] dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
+                unauthed ?
+                    <div className='bg-slate-50 sm:bg-[#c3ccd8] dark:bg-slate-800 overflow-hidden sm:h-[80vh] 
+                    min-h-75 w-full sm:max-w-125 block-shadow h-full relative p-3 sm:rounded-lg grid items-center'>
+                        <Auth />
+                    </div>
+                    // unauthorized cover
+                    :
+                    <BrowserRouter>
+                        <div className='bg-slate-50 sm:bg-[#c3ccd8] dark:bg-slate-800 overflow-hidden sm:max-w-5xl sm:h-[80vh] 
                     min-h-75 w-full block-shadow h-full relative p-0 sm:p-3 sm:rounded-lg flex'>
-                    <AppScope side={side} setSide={setSide} mgr={mgr} />
-                </div>
-            </BrowserRouter>
+                            <AppScope side={side} setSide={setSide} mgr={mgr} />
+                        </div>
+                    </BrowserRouter>
+            }
+
         </ToastableContext.Provider>
         <Toast ref={toast} />
     </>

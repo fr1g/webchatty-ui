@@ -10,7 +10,7 @@ export default function NavList({ items, tight = false, hintBottom = false }: { 
         func();
     }
     return <div className="shadow-none sm:shadow-md rounded-lg grow? overflow-y-scroll">
-        <ul className={` ${tight ? 'use-tight-list' : 'space-y-1 bg-slate-50/15 dark:bg-slate-200/10'} ${hintBottom ? 'mb-8 sm:mb-0' : ''} sm:pb-0`}>
+        <ul className={` ${tight ? 'use-tight-list' : 'space-y-1 bg-slate-50/15 dark:bg-slate-200/10'} ${hintBottom ? 'mb-36' : ''} sm:pb-0`}>
             {items.map((i: NavListItem) => {
                 return <li key={i.name} onClick={() => doSelect(i.jumper, i)}
                     className={`${i.customNode ? '' : 'p-3'} ${tight ? 'tight-item' : 'rounded-lg'} hover:shadow ${i.name == select?.name ? 'bg-slate-500/30! dark:bg-slate-500/75!' : ''} bg-transparent hover:bg-slate-100/40 dark:hover:bg-slate-400/50 active:bg-slate-500/55 dark:active:bg-slate-500`}>
