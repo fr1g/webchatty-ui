@@ -247,7 +247,7 @@ function Layout() {
     const unauthed = true;
 
     return <>
-        {
+        {// debug
             !true && <div className='fixed z-999' style={{ pointerEvents: 'visiblePainted' }}>
                 <div className='fixed bg-amber-300 p-3 shadow-xl z-2222 top-3 right-3' onClick={() => {
                     if (side == "left") setSide("right");
@@ -258,8 +258,8 @@ function Layout() {
             </div>
         }
         <ToastableContext.Provider value={pushToast}>
-            {
-                unauthed ?
+            { // 切换预览 未认证状态
+                !unauthed ?
                     <div className='bg-slate-50 sm:bg-[#c3ccd8] dark:bg-slate-800 overflow-hidden sm:h-[80vh] 
                     min-h-75 w-full sm:max-w-125 block-shadow h-full relative p-3 sm:rounded-lg grid items-center'>
                         <Auth />
