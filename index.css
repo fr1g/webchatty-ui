@@ -13,7 +13,10 @@
     scrollbar-color: rgba(238, 246, 255, 0.582) transparent ;
 }
 
-
+/* 如果出现多行显示bug，则删除此条： */
+#headlessui-portal-root{
+    @apply fixed!
+}
 
 .block-shadow {
     @apply shadow sm:shadow-md shadow-slate-500/30 dark:shadow-slate-800/35;
